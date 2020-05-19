@@ -5,7 +5,7 @@ Cloning Youtube with Vanilla and NodeJs
 2. install @babel/preset-env
 3. install @babel/core
 4. changed from Node grammar to Babel grammar.
-4. install nodemon
+4. install nodemon (npm install nodemon -D)
 
 [package.json]
 - dependencies: need lib
