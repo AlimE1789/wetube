@@ -1,5 +1,7 @@
 
 import express from "express" // == const express = require('express') // require is take ('') from Node Module.
+import morgan from "morgan"
+import helmet from "helmet"
 
 const app = express()
 const port = 4000
@@ -8,7 +10,10 @@ const port = 4000
 const handleListening = (req,res) => console.log(`Listening on : http://localhost:${port}`)
 const handleHome = (req,res) => res.send("Hello from Home")
 const handleProfile = (req,res) => res.send("You are on my profile") 
-
+const betweenHome = (req, res, next) => {
+    console.log("Between")
+    next()
+}
 //node_grammer
 //
 // function handleListening(){
@@ -23,7 +28,16 @@ const handleProfile = (req,res) => res.send("You are on my profile")
 // res.send("You are on my profile")
 //}
 
-app.get("/",handleHome)
+ 
+// app.use(betweenHome) // <== middleware 단 코딩. 코딩 순서가 중요!!
+app.use(helmet())
+app.use(morgan("dev")) // <== use morgan 
+
+const middlewareEnd = (req,res,next) => {
+    res.send("not happening")
+}
+
+app.get("/",middlewareEnd,handleHome)
 app.get("/profile",handleProfile)
 app.listen(port,handleListening)
 // app.get('/', (req, res) => res.send('Hello World!'))
